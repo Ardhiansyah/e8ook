@@ -1,2 +1,2 @@
 # e8ook
-Sebuah platform peminjaman e-book secara online
+Sebuah platform peminjaman buku secara online
