@@ -21,7 +21,8 @@ module.exports = {
     			title: req.body.title,
     			sinopsis: req.body.sinopsis,
                 author: req.body.author,
-                total_page: req.body.total_page,
+				total_page: req.body.total_page,
+				quantity_all: req.body.quantity_all,
     		})
     		  .then(book => res.status(201).redirect(`/books/add?status=1&message=Data ${book.title} ${book.author} berhasil ditambahkan`))
     		  .catch(error => res.status(400).redirect(`/books/add?status=0&message=${error.message}`));
@@ -49,4 +50,13 @@ module.exports = {
 				  .catch(error => res.status(400).redirect(`/books/${req.params.id}/edit?status=0&message=${error.message}`));
 			})
 	},
+
+	deleteData(req, res) {
+		return models.Book.findById(req.params.id)
+		.then(book => {
+			book.destroy()
+			.then(item => res.status(201).redirect(`/books`))
+			.catch(error => res.status(400).redirect(`/books?status=0&message=${error.message}`));
+		});
+	}
 };

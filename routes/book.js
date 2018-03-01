@@ -8,6 +8,6 @@ router.get('/add', bookController.showAddbookForm);
 router.post('/add', bookController.addData);
 router.get('/:id/edit', bookController.showEditData);
 router.post('/:id/edit', bookController.editData);
-// router.post('/:id/edit', (req,res) => res.send(req.body));
+router.get('/:id/delete', bookController.deleteData);
 
 module.exports = router;
