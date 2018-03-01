@@ -29,10 +29,23 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   });
+
   Book.associate = function(models) {
     Book.hasMany(models.Borrow);
     Book.belongsToMany(models.Reader, { through: models.Borrow });
   };
+
+  // Book.findListBorrow = function(id) {
+  //   return new Promise((resolve, reject) => {
+  //     Book.findById(id)
+  //     .then(book => {
+  //       book.getReaders()
+  //       .then(data => res.send())
+  //     })
+  //     .then(rows => resolve(rows)).catch(err => reject(err));
+  //   })
+  // }
+
   Book.prototype.readingDays = function() {
     return Math.ceil(this.total_page/100);
   };

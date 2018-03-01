@@ -54,7 +54,16 @@ module.exports = {
 
 	showBorrowForm(req, res) {
 		return models.Book.findById(req.params.id)
-			.then(book => res.status(201).render(`./pages/books/borrow_book.ejs`, { status: req.query.status, message: req.query.message , book: book, session: req.session}))
+			.then(book => {
+				models.Book.findById(req.params.id, {
+					include: {
+						model: models.Borrow,
+						include: models.Reader,
+						order: [['return_date', 'asc']]
+					}
+				})
+				.then(borrow => res.status(201).render(`./pages/books/borrow_book.ejs`, { status: req.query.status, message: req.query.message , book: book, session: req.session, borrower: borrow}))
+			})
 			.catch(error => res.status(400).redirect(`/?status=0&message=${error.message}`));
 	},
 

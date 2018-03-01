@@ -1,8 +1,9 @@
 'use strict';
 
-function formatDate(arr) {
+function formatDate(date) {
+	let splitDate = date.toString().split(' ');
 	let month = '';
-	switch(arr[1]) {
+	switch(splitDate[1]) {
 		case "Jan": month = '01'; break;
 		case "Feb": month = '02'; break;
 		case "Mar": month = '03'; break;
@@ -16,23 +17,18 @@ function formatDate(arr) {
 		case "Nov": month = '11'; break;
 		case "Dec": month = '12'; break;
 	}
-	return `${arr[3]}-${month}-${arr[2]}`
+	return `${splitDate[3]}-${month}-${splitDate[2]}`
 }
 
 function dateNow() {
-	let date = new Date();
-	let splitDate = date.toString().split(' ');
-	
-	return formatDate(splitDate);
+	return formatDate(new Date());
 }
 
 function returnDate(readingDays) {
-	console.log(readingDays);
 	let date = new Date();
 	date.setDate(date.getDate() + Number(readingDays));
-	let splitDate = date.toString().split(' ');
-	// console.log(date)
-	return formatDate(splitDate);
+
+	return formatDate(date);
 }
 
 function sessionChecker(req, res, next) {
@@ -56,5 +52,6 @@ module.exports = {
 	dateNow,
 	sessionChecker,
 	returnDate,
-  formatSinopsis
+	formatSinopsis,
+	formatDate
 }

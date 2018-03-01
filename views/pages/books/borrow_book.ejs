@@ -28,7 +28,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 text-right">Start Date : </label>
 				<div class="col-sm-5">
-	        		<input class="form-control" id="start_date" name="start_date" type="date" value="<%= helpers.dateNow() %>" disabled>
+	        		<input class="form-control" id="start_date" name="start_date" type="date" value="<%= helpers.dateNow() %>">
 	      		</div>
 			</div>
 			<div class="form-group">
@@ -52,7 +52,14 @@
 		  		</tr>
 		  	</thead>
 		  	<tbody>
-		    
+		    	<% for(let i = 0; i < borrower.Borrows.length; i++) { %>
+		    		<tr>
+		    			<th><%= i+1 %></th>
+		    			<th><%= borrower.Borrows[i].Reader.name %></th>
+		    			<th><%= helpers.formatDate(borrower.Borrows[i].start_date) %></th>
+		    			<th><%= helpers.formatDate(borrower.Borrows[i].return_date) %></th>
+		    		</tr>
+		    	<% } %>
 		  	</tbody>
 		</table>
 

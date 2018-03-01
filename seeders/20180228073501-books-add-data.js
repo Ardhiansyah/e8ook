@@ -2,16 +2,6 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkInsert('Person', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
    return queryInterface.bulkInsert('Books', [{
       title: "Jatuh Bangun Seorang Fullstack",
       sinopsis: "Heru adalah seorang yang sedang berjuang untuk masuk ke dunia programing. Dalam setiap perlajarannya dia selalu menerima tantangan yang tiada henti. Mampukah heru menyelesaikan tugasnya untuk menjadi developer",
@@ -19,6 +9,8 @@ module.exports = {
       total_page: "89",
       quantity_all: "3",
       quantity_current: "3",
+      quantity_borrowed: "0",
+      contributor: "hamba Allah",
       createdAt: new Date(),
       updatedAt: new Date(),
     },{
@@ -28,6 +20,8 @@ module.exports = {
       total_page: "327",
       quantity_all: "2",
       quantity_current: "2",
+      quantity_borrowed: "0",
+      contributor: "hamba Allah",
       createdAt: new Date(),
       updatedAt: new Date(),
     },{
@@ -37,6 +31,8 @@ module.exports = {
       total_page: "127",
       quantity_all: "2",
       quantity_current: "2",
+      quantity_borrowed: "0",
+      contributor: "hamba Allah",
       createdAt: new Date(),
       updatedAt: new Date(),
     },{
@@ -46,6 +42,8 @@ module.exports = {
       total_page: "235",
       quantity_all: "2",
       quantity_current: "2",
+      quantity_borrowed: "0",
+      contributor: "hamba Allah",
       createdAt: new Date(),
       updatedAt: new Date(),
     },{
@@ -55,19 +53,14 @@ module.exports = {
       total_page: "179",
       quantity_all: "3",
       quantity_current: "3",
+      quantity_borrowed: "0",
+      contributor: "hamba Allah",
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});
   },
 
   down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
     return queryInterface.bulkDelete('Books', null, {});
   }
 };
