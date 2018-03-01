@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+</head>
+<body>
+	<% include ../partials/header %>
+  
+<div class="container">
+  <h3>E-8ook Library</h3>
+  <p>Pair Project</p>
+
+  <table class="table">
+  	<thead>
+  		<tr>
+  			<th>No</th>
+  			<th>Title</th>
+  			<th>Author</th>
+  			<th>Reading Days</th>
+  			<th>Action</th>
+  		</tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < books.length; i++) { %>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= books[i].title %></td>
+      <td><%= books[i].author %></td>
+      <td><%= books[i].readingDays() %></td>
+      <td><a href="/books/<%= books[i].id %>/borrow" class="btn btn-primary" role="button">Check Stock Book</a></td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>
+</div>
+
+</body>
+</html>

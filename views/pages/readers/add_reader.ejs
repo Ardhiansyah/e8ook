@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../../partials/head %>
+</head>
+<body>
+	<% include ../../partials/header %>
+
+	<div class="container">
+		<% if(status == 1) { %>
+		<div class="alert alert-success">
+			<strong>Success!</strong> <%= message %>
+		</div>
+		<% } else if(status == 0) { %>
+		<div class="alert alert-danger">
+			<strong>Error!</strong> <%= message %>
+		</div>
+		<% } %>
+		<h3>SignUp</h3>
+		<form class="form-horizontal" method="post">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Name</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="name" name="name" type="text" placeholder="Input Name">
+	      		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Address</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="address" name="address" type="text" placeholder="Input Address">
+	      		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Email</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="email" name="email" type="email" placeholder="Input Email">
+	      		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Phone</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="phone" name="phone" type="text" placeholder="Input Phone">
+	      		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Username</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="username" name="username" type="text" placeholder="Input Username">
+	      		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Password</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="password" name="password" type="password" placeholder="Input Password">
+	      		</div>
+			</div>
+			<input type="submit" class="btn btn-primary" value="Submit" style="margin-left: 200px" />
+		</form>
+	</div>
+</body>
+</html>
