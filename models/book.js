@@ -6,7 +6,14 @@ module.exports = (sequelize, DataTypes) => {
     author: DataTypes.STRING,
     total_page: DataTypes.INTEGER,
     quantity_all: DataTypes.INTEGER,
-    quantity_current: DataTypes.INTEGER,
+    quantity_current: {
+      type: DataTypes.INTEGER,
+      validate: {
+        notEmpty(value) {
+          if (value < 0) throw new Error('Stock buku habis!')
+        }
+      }
+    },
     quantity_borrowed: DataTypes.INTEGER,
     contributor: DataTypes.STRING,
   }, {
@@ -14,10 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       beforeCreate: (instance, options) => {
         instance.quantity_current = instance.quantity_all
       },
-
-      // afterUpdate: (instance, options) => {
-      //   instance.
-      // }
 
       afterUpdate: (instance, options) => {
         sequelize.models.Book.update({
@@ -35,16 +38,28 @@ module.exports = (sequelize, DataTypes) => {
     Book.belongsToMany(models.Reader, { through: models.Borrow });
   };
 
-  // Book.findListBorrow = function(id) {
-  //   return new Promise((resolve, reject) => {
-  //     Book.findById(id)
-  //     .then(book => {
-  //       book.getReaders()
-  //       .then(data => res.send())
-  //     })
-  //     .then(rows => resolve(rows)).catch(err => reject(err));
-  //   })
-  // }
+  Book.findListBorrow = function(idBook, idUser) {
+    return new Promise((resolve, reject) => {
+      Book.findById(idBook)
+      .then(book => {
+        Book.findById(idBook, {
+          include: {
+            model: sequelize.models.Borrow,
+            include: sequelize.models.Reader,
+            order: [['return_date', 'asc']]
+          }
+        })
+        .then(borrow => {
+          let isBorrow = false;
+          borrow.Borrows.forEach(element => {
+            if (element.Reader.id == idUser) isBorrow = true;
+          })
+          resolve({book: book, borrow: borrow, isBorrow: isBorrow});
+        })
+      })
+      .catch(err => reject(err));
+    })
+  }
 
   Book.prototype.readingDays = function() {
     return Math.ceil(this.total_page/100);

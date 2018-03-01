@@ -7,6 +7,9 @@
 	<% include ../../partials/header %>
 
 	<div class="container">
+		<div class="alert alert-info">
+			<strong>Info!</strong> <%= bookInfo %>
+		</div>
 		<% if(status == 1) { %>
 		<div class="alert alert-success">
 			<strong>Success!</strong> <%= message %>
@@ -19,6 +22,7 @@
 		<%= message %>
 		<h3>Borrow Book</h3>
 		<form class="form-horizontal" method="post">
+			<% let disabled = ''; if (book.quantity_current <= 0) disabled = 'disabled';%>
 			<div class="form-group">
 				<label class="col-sm-2 text-right">Title : </label><label class="col-sm-10"><%= book.title %></label>
 			</div>
@@ -28,18 +32,17 @@
 			<div class="form-group">
 				<label class="col-sm-2 text-right">Start Date : </label>
 				<div class="col-sm-5">
-	        		<input class="form-control" id="start_date" name="start_date" type="date" value="<%= helpers.dateNow() %>">
+	        		<input class="form-control" id="start_date" name="start_date" type="date" value="<%= helpers.dateNow() %>" <%= disabled %>>
 	      		</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 text-right">Return Date : </label>
 				<div class="col-sm-5">
-	        		<input class="form-control" id="return_date" name="return_date" type="date" value="<%= helpers.returnDate(book.readingDays()) %>">
+	        		<input class="form-control" id="return_date" name="return_date" type="date" value="<%= helpers.returnDate(book.readingDays()) %>" <%= disabled %>>
 	      		</div>
 			</div>
 
-			<% let disabled = ''; if (book.quantity_current == 0) disabled = 'disabled';%>
-			<input type="submit" class="btn btn-primary <%= disabled %>" value="Borrow Book" style="margin-left: 200px" />
+			<input type="submit" class="btn btn-primary" value="Borrow Book" style="margin-left: 200px" <%= disabled %> />
 		</form>
 		<br><br>
 		<table class="table">
@@ -52,12 +55,12 @@
 		  		</tr>
 		  	</thead>
 		  	<tbody>
-		    	<% for(let i = 0; i < borrower.Borrows.length; i++) { %>
+		    	<% for(let i = 0; i < borrow.Borrows.length; i++) { %>
 		    		<tr>
 		    			<th><%= i+1 %></th>
-		    			<th><%= borrower.Borrows[i].Reader.name %></th>
-		    			<th><%= helpers.formatDate(borrower.Borrows[i].start_date) %></th>
-		    			<th><%= helpers.formatDate(borrower.Borrows[i].return_date) %></th>
+		    			<th><%= borrow.Borrows[i].Reader.name %></th>
+		    			<th><%= helpers.formatDate(borrow.Borrows[i].start_date) %></th>
+		    			<th><%= helpers.formatDate(borrow.Borrows[i].return_date) %></th>
 		    		</tr>
 		    	<% } %>
 		  	</tbody>
