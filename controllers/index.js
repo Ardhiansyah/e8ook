@@ -10,4 +10,4 @@ module.exports = {
 	book,
 	dashboard,
 	history,
-}
+};
