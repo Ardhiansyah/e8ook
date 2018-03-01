@@ -32,16 +32,14 @@
         </tr>
       </thead>
       <tbody>
-        <% for(let i = 0; i < readers.length; i++) { %>
         <tr>
-          <td><%= i+1 %></td>
-          <td><%= readers[i].name %></td>
-          <td><%= readers[i].address %></td>
-          <td><%= readers[i].email %></td>
-          <td><%= readers[i].phone %></td>
-          <td><a href="/readers/<%= readers[i].id %>/edit"><i class="fa fa-edit" style="font-size:24px;color:blue"></i></a>&nbsp;&nbsp;<a href="/readers/<%= readers[i].id %>/delete" onclick="return confirm('Delete This Item?')"><i class="fa fa-remove" style="font-size:24px;color:red"></i></a></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><!-- <a href="#"><i class="fa fa-edit" style="font-size:24px;color:blue"></i></a>&nbsp;&nbsp;<a href="#" onclick="return confirm('Delete This Item?')"><i class="fa fa-remove" style="font-size:24px;color:red"></i></a> --></td>
         </tr>
-        <% } %>
       </tbody>
     </table>
   </div>

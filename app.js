@@ -10,8 +10,6 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 
-app.locals.helper = require('./helpers')
-
 app.use(express.static('public'));
 
 routes(app);
