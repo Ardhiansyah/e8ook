@@ -55,14 +55,16 @@
 		  		</tr>
 		  	</thead>
 		  	<tbody>
-		    	<% for(let i = 0; i < borrow.Borrows.length; i++) { %>
+		    	<% if (borrow) {
+		    		for(let i = 0; i < borrow.Borrows.length; i++) { 
+		    		%>
 		    		<tr>
-		    			<th><%= i+1 %></th>
-		    			<th><%= borrow.Borrows[i].Reader.name %></th>
-		    			<th><%= helpers.formatDate(borrow.Borrows[i].start_date) %></th>
-		    			<th><%= helpers.formatDate(borrow.Borrows[i].return_date) %></th>
+		    			<td><%= i+1 %></td>
+		    			<td><%= borrow.Borrows[i].Reader.name %></td>
+		    			<td><%= helpers.formatDate(borrow.Borrows[i].start_date) %></td>
+		    			<td><%= helpers.formatDate(borrow.Borrows[i].return_date) %></td>
 		    		</tr>
-		    	<% } %>
+		    	<% }} %>
 		  	</tbody>
 		</table>
 

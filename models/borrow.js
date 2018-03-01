@@ -21,6 +21,20 @@ module.exports = (sequelize, DataTypes) => {
           })
         })
       },
+
+      afterUpdate: (instance, options) => {
+        sequelize.models.Book.findById(instance.BookId)
+        .then(book => {
+          sequelize.models.Book.update({
+            quantity_current: (book.quantity_current + 1),
+            quantity_borrowed: (book.quantity_borrowed - 1)
+          }, {
+            where: {
+              id: instance.BookId
+            }
+          })
+        })
+      },
     }
   });
   Borrow.associate = function(models) {

@@ -24,6 +24,7 @@ module.exports = {
                 author: req.body.author,
 				total_page: req.body.total_page,
 				quantity_all: req.body.quantity_all,
+				contributor: req.body.contributor,
     		})
     		  .then(book => res.status(201).redirect(`/books/add?status=1&message=Data ${book.title} ${book.author} berhasil ditambahkan`))
     		  .catch(error => res.status(400).redirect(`/books/add?status=0&message=${error.message}`));
@@ -55,11 +56,12 @@ module.exports = {
 	showBorrowForm(req, res) {
 		return models.Book.findListBorrow(req.params.id, req.session.idUser)
 			.then(listBorrow => {
+				console.log(listBorrow.borrow)
 				let bookInfo = '';
 				if (listBorrow.book.quantity_current <= 0) bookInfo = `Stock buku habis, silahkan tunggu ditanggal ${helpers.formatDate(listBorrow.borrow.Borrows[0].return_date)}`;
 				else bookInfo = `Stock buku tersisa ${listBorrow.book.quantity_current}`;
 
-				res.status(201).render(`./pages/books/borrow_book.ejs`, { status: req.query.status, message: req.query.message , book: listBorrow.book, borrow: listBorrow.borrow, isBorrow: listBorrow.isBorrow, session: req.session, bookInfo: bookInfo})
+				res.status(201).render(`./pages/books/borrow_book.ejs`, { status: req.query.status, message: req.query.message , book: listBorrow.book, borrow: listBorrow.borrow, session: req.session, bookInfo: bookInfo})
 			})
 			.catch(error => res.status(400).redirect(`/?status=0&message=${error.message}`));
 	},

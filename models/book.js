@@ -46,16 +46,13 @@ module.exports = (sequelize, DataTypes) => {
           include: {
             model: sequelize.models.Borrow,
             include: sequelize.models.Reader,
+            where: {
+              statusBorrowed: true
+            },
             order: [['return_date', 'asc']]
           }
         })
-        .then(borrow => {
-          let isBorrow = false;
-          borrow.Borrows.forEach(element => {
-            if (element.Reader.id == idUser) isBorrow = true;
-          })
-          resolve({book: book, borrow: borrow, isBorrow: isBorrow});
-        })
+        .then(borrow => resolve({book: book, borrow: borrow}))
       })
       .catch(err => reject(err));
     })
@@ -64,10 +61,6 @@ module.exports = (sequelize, DataTypes) => {
   Book.prototype.readingDays = function() {
     return Math.ceil(this.total_page/100);
   };
-
-  // Book.prototype.stockCurrent = function() {
-  //   return Math.ceil(this.quantity_all - this.quantity_borrowed);
-  // };
 
   return Book;
 };

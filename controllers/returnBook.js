@@ -19,24 +19,16 @@ module.exports = {
     },
     
     statusReturn(req, res) {
-		// return models.Borrow.findById(req.params.id)
-		// .then(status => {
-            // res.send(status)
-			// status.update({
-            //     statusBorrowed: false
-            // })
-			// .then(item => res.status(201).redirect(`/returnBook`))
-			// .catch(error => res.status(400).redirect(`/books?status=0&message=${error.message}`));
-        // });
-        return models.Borrow.update({
-            statusBorrowed: false
-        }, {
-            where: {
-                id: req.params.id
-            }
-        })
-        .then(() => res.status(201).redirect('/returnBook'))
-        .catch(error => res.status(400).send(error));
+        return models.Borrow.findAll({
+            where: { id:req.params.id }
+            })
+            .then(data => {
+                data[0].update({
+                    statusBorrowed: false
+                })
+                .then(() => res.status(201).redirect('/returnBook'))
+                .catch(error => res.status(400).send(error));
+            })
 	}
 
 };
