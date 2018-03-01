@@ -60,8 +60,8 @@ module.exports = {
 
 	borrowBook(req, res) {
 		return models.Borrow.create({
-				IdBook: req.params.id,
-    			IdReader: req.session.idUser,
+				BookId: req.params.id,
+    			ReaderId: req.session.idUser,
                 start_date: req.body.start_date,
                 return_date: req.body.return_date,
     		})
