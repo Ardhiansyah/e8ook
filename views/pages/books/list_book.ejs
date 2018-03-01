@@ -33,15 +33,15 @@
         </tr>
       </thead>
       <tbody>
-            <% data.forEach((list) => { %>
+            <% data.forEach((list, i) => { %>
         <tr>
             
-          <td><%= list.id %></td>
+          <td><%= i+1 %></td>
           <td><%= list.title %></td>
           <td><%= list.sinopsis %></td>
           <td><%= list.author %></td>
           <td><%= list.total_page %></td>
-          <td><%= list.quantity_current %></td>
+          <td><%= list.quantity_all %></td>
           <td><a href="/books/<%= list.id %>/edit"><i class="fa fa-edit" style="font-size:24px;color:blue"></i></a>&nbsp;&nbsp;<a href="#" onclick="return confirm('Delete This Item?')"><i class="fa fa-remove" style="font-size:24px;color:red"></i></a></td>
         
         </tr>
