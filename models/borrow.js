@@ -1,13 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Rent = sequelize.define('Rent', {
+  var Borrow = sequelize.define('Borrow', {
     IdBook: DataTypes.INTEGER,
     IdReader: DataTypes.INTEGER,
     start_date: DataTypes.DATE,
     return_date: DataTypes.DATE
   }, {});
-  Rent.associate = function(models) {
-    // associations can be defined here
+  Borrow.associate = function(models) {
+    Borrow.belongsTo(models.Reader);
+    Borrow.belongsTo(models.Book);
   };
-  return Rent;
+  return Borrow;
 };
