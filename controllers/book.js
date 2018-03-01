@@ -6,13 +6,13 @@ module.exports = {
 	showAll(req, res) {
 		return models.Book
 			.findAll()
-      		  .then(books => res.status(201).render(`./pages/books/list_book.ejs`, { status: req.query.status, message: req.query.message, data: books }))
+      		  .then(books => res.status(201).render(`./pages/books/list_book.ejs`, { status: req.query.status, message: req.query.message, data: books, session: req.session }))
       		//   .then(books => res.status(201).send(books))
        		  .catch(error => res.status(400).send(error));
 	},
 
 	showAddbookForm(req ,res) {
-		res.status(201).render(`./pages/books/add_book.ejs`, { status: req.query.status, message: req.query.message });
+		res.status(201).render(`./pages/books/add_book.ejs`, { status: req.query.status, message: req.query.message, session: req.session });
     },
 
     addData(req, res) {
@@ -31,7 +31,7 @@ module.exports = {
 	showEditData(req, res) {
 		return models.Book
 			.findById(req.params.id)
-			.then(data => res.status(201).render(`./pages/books/edit_book.ejs`, { status: req.query.status, message: req.query.message , data: data}))	
+			.then(data => res.status(201).render(`./pages/books/edit_book.ejs`, { status: req.query.status, message: req.query.message , data: data, session: req.session}))	
 			.catch(error => res.status(400).redirect(`/books?status=0&message=${error.message}`));
 	},
 
@@ -51,6 +51,24 @@ module.exports = {
 			})
 	},
 
+
+	showBorrowForm(req, res) {
+		return models.Book.findById(req.params.id)
+			.then(book => res.status(201).render(`./pages/books/borrow_book.ejs`, { status: req.query.status, message: req.query.message , book: book, session: req.session}))
+			.catch(error => res.status(400).redirect(`/?status=0&message=${error.message}`));
+	},
+
+	borrowBook(req, res) {
+		return models.Borrow.create({
+				IdBook: req.params.id,
+    			IdReader: req.session.idUser,
+                start_date: req.body.start_date,
+                return_date: req.body.return_date,
+    		})
+			.then(book => res.status(201).redirect(`/books/${req.params.id}/borrow?status=1&message=Buku Berhasil Dipinjam`))
+			.catch(error => res.status(400).redirect(`/books/${req.params.id}/borrow?status=0&message=${error.message}`));
+	},
+
 	deleteData(req, res) {
 		return models.Book.findById(req.params.id)
 		.then(book => {
@@ -59,4 +77,5 @@ module.exports = {
 			.catch(error => res.status(400).redirect(`/books?status=0&message=${error.message}`));
 		});
 	}
+
 };

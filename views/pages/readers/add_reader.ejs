@@ -16,7 +16,7 @@
 			<strong>Error!</strong> <%= message %>
 		</div>
 		<% } %>
-		<h3>Add Reader</h3>
+		<h3>SignUp</h3>
 		<form class="form-horizontal" method="post">
 			<div class="form-group">
 				<label class="col-sm-2 control-label">Name</label>
@@ -42,7 +42,19 @@
 	        		<input class="form-control" id="phone" name="phone" type="text" placeholder="Input Phone">
 	      		</div>
 			</div>
-			<input type="submit" class="btn btn-primary" value="Add Reader" style="margin-left: 200px" />
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Username</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="username" name="username" type="text" placeholder="Input Username">
+	      		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Password</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="password" name="password" type="password" placeholder="Input Password">
+	      		</div>
+			</div>
+			<input type="submit" class="btn btn-primary" value="Submit" style="margin-left: 200px" />
 		</form>
 	</div>
 </body>
