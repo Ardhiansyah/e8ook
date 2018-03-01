@@ -62,7 +62,14 @@ module.exports = {
 						order: [['return_date', 'asc']]
 					}
 				})
-				.then(borrow => res.status(201).render(`./pages/books/borrow_book.ejs`, { status: req.query.status, message: req.query.message , book: book, session: req.session, borrower: borrow}))
+				.then(borrow => {
+					let isBorrow = false;
+					borrow.Borrows.forEach(element => {
+						if (element.Reader.id == req.session.idUser) isBorrow = true;
+					})
+					res.send(isBorrow)
+					// res.status(201).render(`./pages/books/borrow_book.ejs`, { status: req.query.status, message: req.query.message , book: book, session: req.session, borrower: borrow})
+				})
 			})
 			.catch(error => res.status(400).redirect(`/?status=0&message=${error.message}`));
 	},
