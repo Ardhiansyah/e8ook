@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<% include ../../partials/head %>
+</head>
+<body>
+	<% include ../../partials/header %>
+
+	<div class="container">
+		<% if(status == 1) { %>
+		<div class="alert alert-success">
+			<strong>Success!</strong> <%= message %>
+		</div>
+		<% } else if(status == 0) { %>
+		<div class="alert alert-danger">
+			<strong>Error!</strong> <%= message %>
+		</div>
+		<% } %>
+		<h3>Edit Book</h3>
+		<form class="form-horizontal" method="post">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Title</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="title" name="title" type="text" value="<%= data.title %>">
+	      		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Sinopsis</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="sinopsis" name="sinopsis" type="text" value="<%= data.sinopsis %>">
+	      		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Author</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="author" name="author" type="text" value="<%= data.author %>">
+	      		</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Total Page</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="total_page" name="total_page" type="number" value="<%= data.total_page %>">
+	      		</div>
+            </div>
+            <div class="form-group">
+				<label class="col-sm-2 control-label">Quantity</label>
+	      		<div class="col-sm-5">
+	        		<input class="form-control" id="quantity_all" name="quantity_all" type="number" value="<%= data.quantity_all %>">
+	      		</div>
+			</div>
+			<input type="submit" class="btn btn-primary" value="Edit Book" style="margin-left: 200px" />
+		</form>
+	</div>
+</body>
+</html>
