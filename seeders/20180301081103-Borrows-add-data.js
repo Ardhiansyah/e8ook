@@ -12,31 +12,28 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-   return queryInterface.bulkInsert('Readers', [{
-      name: 'Kim Jong Un',
-      address: 'Korea Utara',
-      email: 'kimjongun@koreautara.com',
+   return queryInterface.bulkInsert('Borrows', [{
+      IdBook: 6,
+      IdReader: 5,
+      start_date: new Date(),
+      return_date: new Date,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date(), 
     },{
-      name: 'Luffy',
-      address: 'Big Mom Manssion',
-      email: 'luffy@bajaklauttopijerami.com',
+      IdBook: 7,
+      IdReader: 5,
+      start_date: new Date(),
+      return_date: new Date,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date(), 
     },{
-      name: 'Nuryem',
-      address: 'Neraya pondok kuning',
-      email: 'nuryem@des.com',
+      IdBook: 8,
+      IdReader: 5,
+      start_date: new Date(),
+      return_date: new Date,
       createdAt: new Date(),
-      updatedAt: new Date(),
-    },{
-      name: 'Tsubasa',
-      address: 'Jepang',
-      email: 'tsubasa@jepang.com',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },], {});
+      updatedAt: new Date(), 
+    }], {});
   },
 
   down: (queryInterface, Sequelize) => {
@@ -47,6 +44,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkDelete('Readers', null, {});
+    return queryInterface.bulkDelete('Borrows', null, {});
   }
 };

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../../partials/head %>
+</head>
+<body>
+  <% include ../../partials/header %>
+
+  <div class="container">
+    <% if(status == 1) { %>
+    <div class="alert alert-success">
+      <strong>Success!</strong> <%= message %>
+    </div>
+    <% } else if(status == 0) { %>
+    <div class="alert alert-danger">
+      <strong>Error!</strong> <%= message %>
+    </div>
+    <% } %>
+
+    <h3>List Books</h3>
+    
+    <table class="table">
+      <input type="button" onclick="location.href='/books/add/';" class="btn btn-success pull-right" value="Add Book" />
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Title</th>
+          <th>Sinopsis</th>
+          <th>Author</th>
+          <th>Total Page</th>
+          <th>Tersedia</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+            <% data.forEach((list, i) => { %>
+        <tr>
+            
+          <td><%= i+1 %></td>
+          <td><%= list.title %></td>
+          <td><%= helper.formatSinopsis(list.sinopsis) %></td>
+          <td><%= list.author %></td>
+          <td><%= list.total_page %></td>
+          <td><%= list.quantity_all %></td>
+          <td><a href="/books/<%= list.id %>/edit"><i class="fa fa-edit" style="font-size:24px;color:blue"></i></a>&nbsp;&nbsp;<a href="/books/<%= list.id %>/delete" onclick="return confirm('Delete This Item?')"><i class="fa fa-remove" style="font-size:24px;color:red"></i></a></td>
+        
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
