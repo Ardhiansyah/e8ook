@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING
   }, {});
   Reader.associate = function(models) {
-    // associations can be defined here
+    Reader.hasMany(models.Borrow);
+    Reader.belongsToMany(models.Book, { through: models.Borrow });
   };
   return Reader;
 };

@@ -9,7 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     quantity_current: DataTypes.INTEGER
   }, {});
   Book.associate = function(models) {
-    // associations can be defined here
+    Book.hasMany(models.Borrow);
+    Book.belongsToMany(models.Reader, { through: models.Borrow });
+  };
+  Book.prototype.readingDays = function() {
+    return Math.ceil(this.total_page/100);
   };
   return Book;
 };
