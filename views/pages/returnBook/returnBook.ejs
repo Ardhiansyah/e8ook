@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../../partials/head %>
+</head>
+<body>
+  <% include ../../partials/header %>
+
+  <div class="container">
+    <% if(status == 1) { %>
+    <div class="alert alert-success">
+      <strong>Success!</strong> <%= message %>
+    </div>
+    <% } else if(status == 0) { %>
+    <div class="alert alert-danger">
+      <strong>Error!</strong> <%= message %>
+    </div>
+    <% } %>
+
+    <h3>Form Pengembalian Buku</h3>
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Tanggal Peminjaman</th>
+          <th>Tanggal Pengembalian</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach((list, i) => { %>
+            <tr>
+            <td><%= i+1 %></td>
+            <td><%= list.Book.title %></td>
+            <td><%= list.Book.author %></td>
+            <td><%= list.start_date %></td>
+            <td><%= list.return_date %></td>
+            <td><a href="/returnBook/<%= list.id %>/returnBook" onclick="return confirm('Return This Item?')"><i class="fa fa-remove" style="font-size:24px;color:red"></i></a></td>
+            </tr>
+        <% }) %>
+        
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
