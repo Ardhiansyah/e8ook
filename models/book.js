@@ -7,7 +7,34 @@ module.exports = (sequelize, DataTypes) => {
     total_page: DataTypes.INTEGER,
     quantity_all: DataTypes.INTEGER,
     quantity_current: DataTypes.INTEGER
-  }, {});
+  }, {
+    hooks: {
+      beforeCreate: (instance, options) => {
+        instance.quantity_current = instance.quantity_all
+      },
+
+      // afterUpdate: (instance, options) => {
+      //   sequelize.models.Book.findById(instance.id)
+      //   .then(book => {
+      //     console.log(book.quantity_current)
+      //     console.log(book.quantity_all)
+      //     console.log(instance.quantity_current)
+      //     console.log(instance.quantity_all)
+      //     if(book.quantity_all != instance.quantity_all) {
+      //       let updateCurrent = book.quantity_current - (book.quantity_alls-instance.quantity_all)
+      //       book.update({
+      //         quantity_current: updateCurrent
+      //       })
+      //       .then(book => {
+      //         console.log(book);
+      //       })
+      //     } 
+      //   })
+      //   // console.log(sequelize.models.Book)
+      // }
+
+    }
+  });
   Book.associate = function(models) {
     Book.hasMany(models.Borrow);
     Book.belongsToMany(models.Reader, { through: models.Borrow });

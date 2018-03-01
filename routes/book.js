@@ -13,5 +13,6 @@ router.get('/:id/edit', bookController.showEditData);
 router.post('/:id/edit', bookController.editData);
 router.get('/:id/borrow', bookController.showBorrowForm);
 router.post('/:id/borrow', bookController.borrowBook);
+router.get('/:id/delete', bookController.deleteData);
 
 module.exports = router;

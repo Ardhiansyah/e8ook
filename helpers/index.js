@@ -43,8 +43,17 @@ function sessionChecker(req, res, next) {
     }
 };
 
+function formatSinopsis(string) {
+    let maxWord = 20;
+
+    string = string.split(' ').splice(0, maxWord)
+    string.push('...')
+
+    return string.join(' ')
+}
+
 module.exports = {
 	dateNow,
 	sessionChecker,
-	returnDate
-}
+	returnDate,
+  formatSinopsis
