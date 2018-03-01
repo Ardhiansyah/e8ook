@@ -1,8 +1,13 @@
 {
   "development": {
     "username": "postgres",
+<<<<<<< HEAD
     "password": "postgres",
     "database": "e8ook_development",
+=======
+    "password": null,
+    "database": "e800k_development",
+>>>>>>> 1e6ba60505f3a2ed04b919436ba0b4d73b22295e
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

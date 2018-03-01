@@ -51,8 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Reader.associate = function(models) {
-    Reader.hasMany(models.Borrow);
-    Reader.belongsToMany(models.Book, { through: models.Borrow });
+    // associations can be defined here
   };
   return Reader;
 };
