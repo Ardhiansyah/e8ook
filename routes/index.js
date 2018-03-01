@@ -6,4 +6,5 @@ module.exports = app => {
 	}));
 
 	app.use('/readers', require('./reader'));
+	app.use('/books', require('./book'));
 };
