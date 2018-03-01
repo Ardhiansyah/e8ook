@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     BookId: DataTypes.INTEGER,
     ReaderId: DataTypes.INTEGER,
     start_date: DataTypes.DATE,
-    return_date: DataTypes.DATE
+    return_date: DataTypes.DATE,
+    statusBorrowed: DataTypes.BOOLEAN,
   }, {
     hooks: {
       beforeCreate: (instance, options) => {

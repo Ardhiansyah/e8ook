@@ -7,7 +7,8 @@ module.exports = {
         // res.send('on developed')
         return models.Borrow
         .findAll({
-            where: {ReaderId: 5},
+            where: {ReaderId: req.session.idUser,
+                statusBorrowed: false},
             include: [{model: models.Book}]
         })
         // .then(data => res.send(data))
