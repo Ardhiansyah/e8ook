@@ -2,9 +2,9 @@
   "name": "e8ook",
   "version": "1.0.0",
   "description": "Sebuah platform peminjaman e-book secara online",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,8 @@
     "pg": "^7.4.1",
     "sequelize": "^4.34.1",
     "sequelize-cli": "^4.0.0"
+  },
+  "engines": {
+    "node": "8.9.4"
   }
 }
