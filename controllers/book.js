@@ -1,6 +1,7 @@
 'use strict';
 
 const models = require('../models');
+const helpers = require('../helpers');
 
 module.exports = {
 	showAll(req, res) {
@@ -51,25 +52,14 @@ module.exports = {
 			})
 	},
 
-
 	showBorrowForm(req, res) {
-		return models.Book.findById(req.params.id)
-			.then(book => {
-				models.Book.findById(req.params.id, {
-					include: {
-						model: models.Borrow,
-						include: models.Reader,
-						order: [['return_date', 'asc']]
-					}
-				})
-				.then(borrow => {
-					let isBorrow = false;
-					borrow.Borrows.forEach(element => {
-						if (element.Reader.id == req.session.idUser) isBorrow = true;
-					})
-					// res.send(isBorrow)
-					res.status(201).render(`./pages/books/borrow_book.ejs`, { status: req.query.status, message: req.query.message , book: book, session: req.session, borrower: borrow})
-				})
+		return models.Book.findListBorrow(req.params.id, req.session.idUser)
+			.then(listBorrow => {
+				let bookInfo = '';
+				if (listBorrow.book.quantity_current <= 0) bookInfo = `Stock buku habis, silahkan tunggu ditanggal ${helpers.formatDate(listBorrow.borrow.Borrows[0].return_date)}`;
+				else bookInfo = `Stock buku tersisa ${listBorrow.book.quantity_current}`;
+
+				res.status(201).render(`./pages/books/borrow_book.ejs`, { status: req.query.status, message: req.query.message , book: listBorrow.book, borrow: listBorrow.borrow, isBorrow: listBorrow.isBorrow, session: req.session, bookInfo: bookInfo})
 			})
 			.catch(error => res.status(400).redirect(`/?status=0&message=${error.message}`));
 	},
@@ -80,6 +70,7 @@ module.exports = {
     			ReaderId: req.session.idUser,
                 start_date: req.body.start_date,
                 return_date: req.body.return_date,
+                statusBorrowed: true,
     		})
 			.then(book => res.status(201).redirect(`/books/${req.params.id}/borrow?status=1&message=Buku Berhasil Dipinjam`))
 			.catch(error => res.status(400).redirect(`/books/${req.params.id}/borrow?status=0&message=${error.message}`));
