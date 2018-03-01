@@ -6,7 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     author: DataTypes.STRING,
     total_page: DataTypes.INTEGER,
     quantity_all: DataTypes.INTEGER,
-    quantity_current: DataTypes.INTEGER
+    quantity_current: DataTypes.INTEGER,
+    quantity_borrowed: DataTypes.INTEGER,
+    contributor: DataTypes.STRING,
   }, {
     hooks: {
       beforeCreate: (instance, options) => {
@@ -14,24 +16,16 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       // afterUpdate: (instance, options) => {
-      //   sequelize.models.Book.findById(instance.id)
-      //   .then(book => {
-      //     console.log(book.quantity_current)
-      //     console.log(book.quantity_all)
-      //     console.log(instance.quantity_current)
-      //     console.log(instance.quantity_all)
-      //     if(book.quantity_all != instance.quantity_all) {
-      //       let updateCurrent = book.quantity_current - (book.quantity_alls-instance.quantity_all)
-      //       book.update({
-      //         quantity_current: updateCurrent
-      //       })
-      //       .then(book => {
-      //         console.log(book);
-      //       })
-      //     } 
-      //   })
-      //   // console.log(sequelize.models.Book)
+      //   instance.
       // }
+
+      afterUpdate: (instance, options) => {
+        sequelize.models.Book.update({
+          quantity_current: (instance.quantity_all - instance.quantity_borrowed)
+        }, {
+          where: {id: instance.id}
+        })
+      }
 
     }
   });
@@ -42,5 +36,10 @@ module.exports = (sequelize, DataTypes) => {
   Book.prototype.readingDays = function() {
     return Math.ceil(this.total_page/100);
   };
+
+  // Book.prototype.stockCurrent = function() {
+  //   return Math.ceil(this.quantity_all - this.quantity_borrowed);
+  // };
+
   return Book;
 };
