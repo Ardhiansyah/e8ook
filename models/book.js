@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     author: DataTypes.STRING,
     total_page: DataTypes.INTEGER,
     quantity_all: DataTypes.INTEGER,
-<<<<<<< HEAD
     quantity_current: DataTypes.INTEGER,
     quantity_borrowed: DataTypes.INTEGER,
     contributor: DataTypes.STRING,
@@ -49,12 +48,6 @@ module.exports = (sequelize, DataTypes) => {
 
   Book.prototype.readingDays = function() {
     return Math.ceil(this.total_page/100);
-=======
-    quantity_current: DataTypes.INTEGER
-  }, {});
-  Book.associate = function(models) {
-    // associations can be defined here
->>>>>>> 1e6ba60505f3a2ed04b919436ba0b4d73b22295e
   };
 
   // Book.prototype.stockCurrent = function() {

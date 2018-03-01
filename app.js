@@ -13,11 +13,8 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 
-<<<<<<< HEAD
 app.locals.helpers = require('./helpers');
 
-=======
->>>>>>> 1e6ba60505f3a2ed04b919436ba0b4d73b22295e
 app.use(express.static('public'));
 
 app.use(session({
