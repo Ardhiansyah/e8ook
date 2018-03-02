@@ -42,6 +42,7 @@ module.exports = {
                     req.session.isLogin = true;
                     req.session.idUser = reader[0].id;
                     req.session.userName = reader[0].username;
+                    req.session.email = reader[0].email;
                     res.status(201).redirect('/');
                 } 
                 else reject();
@@ -53,6 +54,7 @@ module.exports = {
         req.session.isLogin = false;
         req.session.idUser = null;
         req.session.userName = null;
+        req.session.email = null;
         res.status(201).redirect('/');
     },
 };

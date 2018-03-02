@@ -56,7 +56,7 @@ module.exports = {
 	showBorrowForm(req, res) {
 		return models.Book.findListBorrow(req.params.id, req.session.idUser)
 			.then(listBorrow => {
-				console.log(listBorrow.borrow)
+				// console.log(listBorrow.borrow)
 				let bookInfo = '';
 				if (listBorrow.book.quantity_current <= 0) bookInfo = `Stock buku habis, silahkan tunggu ditanggal ${helpers.formatDate(listBorrow.borrow.Borrows[0].return_date)}`;
 				else bookInfo = `Stock buku tersisa ${listBorrow.book.quantity_current}`;
@@ -74,7 +74,13 @@ module.exports = {
                 return_date: req.body.return_date,
                 statusBorrowed: true,
     		})
-			.then(book => res.status(201).redirect(`/books/${req.params.id}/borrow?status=1&message=Buku Berhasil Dipinjam`))
+			.then(() => {
+				models.Book.findById(req.params.id)
+				.then(book => {
+					helpers.sendEmail(req.session.email, { title: book.title, return_date: req.body.return_date })
+					res.status(201).redirect(`/books/${req.params.id}/borrow?status=1&message=Buku Berhasil Dipinjam`)
+				})
+			})
 			.catch(error => res.status(400).redirect(`/books/${req.params.id}/borrow?status=0&message=${error.message}`));
 	},
 
