@@ -1,5 +1,7 @@
 'use strict';
 
+const nodemailer = require('nodemailer');
+
 function formatDate(date) {
 	let splitDate = date.toString().split(' ');
 	let month = '';
@@ -48,10 +50,41 @@ function formatSinopsis(string) {
     return string.join(' ')
 }
 
+function sendEmail(emailReceiver, book) {
+	nodemailer.createTestAccount((err, account) => {
+	    let transporter = nodemailer.createTransport({
+	        host: 'smtp.gmail.com',
+	        port: 465,
+	        secure: true,
+	        auth: {
+	            user: 'e.8ook.platinum@gmail.com',
+	            pass: 'e8ookplatinum'
+	        }
+	    });
+
+	    let mailOptions = {
+	        from: '"e8ook" <e.8ook.platinum@gmail.com>', // sender address
+	        to: emailReceiver, // list of receivers
+	        subject: 'Notifikasi peminjaman buku', // Subject line
+	        text: `Anda meminjam buku ${book.title} silahkan dikembalikan tanggal ${book.return_date}. Selamat Membaca.`, // plain text body
+	        html: `<b>Anda meminjam buku ${book.title} silahkan dikembalikan tanggal ${book.return_date}. Selamat Membaca.</b>` // html body
+	    };
+
+	    transporter.sendMail(mailOptions, (error, info) => {
+	        if (error) {
+	            return console.log(error);
+	        }
+	        console.log('Message sent: %s', info.messageId);
+	        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+	    });
+	});
+}
+
 module.exports = {
 	dateNow,
 	sessionChecker,
 	returnDate,
 	formatSinopsis,
-	formatDate
+	formatDate,
+	sendEmail
 }

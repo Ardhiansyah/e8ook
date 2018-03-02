@@ -74,7 +74,13 @@ module.exports = {
                 return_date: req.body.return_date,
                 statusBorrowed: true,
     		})
-			.then(book => res.status(201).redirect(`/books/${req.params.id}/borrow?status=1&message=Buku Berhasil Dipinjam`))
+			.then(() => {
+				models.Book.findById(req.params.id)
+				.then(book => {
+					helpers.sendEmail(req.session.email, { title: book.title, return_date: req.body.return_date })
+					res.status(201).redirect(`/books/${req.params.id}/borrow?status=1&message=Buku Berhasil Dipinjam`)
+				})
+			})
 			.catch(error => res.status(400).redirect(`/books/${req.params.id}/borrow?status=0&message=${error.message}`));
 	},
 

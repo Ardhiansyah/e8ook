@@ -23,7 +23,8 @@ app.use(session({
     cookie: {
     	isLogin: false,
     	idUser: null,
-    	userName: null
+    	userName: null,
+    	email: null,
     }
 }));
 
